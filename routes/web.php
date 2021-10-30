@@ -166,7 +166,13 @@ Route::get('pembelian', function () {
 
 // Mengakeses data melalui model
 Route::get('pembeli', function () {
-    $pembeli = \App\Models\Pesanan::all();
+    $pesanan = \App\Models\Pesanan::all();
+    return $pesanan;
+});
+
+// Mengakeses data melalui model
+Route::get('pembeli', function () {
+    $pembeli = \App\Models\Pembeli::all();
     return $pembeli;
 });
 
