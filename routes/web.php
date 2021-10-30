@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Post;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -105,4 +106,72 @@ Route::get('biodata/{param1?}/{param2?}/{param3?}/{param4?}/{param5?}', function
     $tb = null,
     $bb = null) {
     return view('biodata', compact('nama', 'alamat', 'jk', 'tb', 'bb'));
+});
+
+// Mengakeses data melalui model
+Route::get('testmodel', function () {
+    $query = \App\Models\Post::all();
+    return $query;
+});
+
+// Mencari data berdasarkan parameter 'id'
+Route::get('testmodel/{id}', function ($id) {
+    $query = \App\Models\Post::find($id);
+    return $query;
+});
+
+// Mencari data berdasarkam field 'title' yang sama dengan parameter 's'
+Route::get('testmodel-cari/{search}', function ($s) {
+    $query = \App\Models\Post::where('title','like',"%$s%")->get();
+    return $query;
+});
+
+// Mengubah judul dari data ke 2 berdasarkan 'id'
+Route::get('testmodel-update', function () {
+    $query = \App\Models\Post::find(2);
+    $query->title = "Bane si bajak laut";
+    $query->save();
+    return $query;
+});
+
+// Menambah data baru
+Route::get('testmodel-add', function () {
+    $query = new \App\Models\Post();
+    $query->title = "Sholawat menghapus maksiat";
+    $query->title = "Lorem ipsum sit amet dolor";
+    $query->save();
+    return $query;
+});
+
+//  Menghapus data
+Route::get('testmodel-delete/{id}', function ($id) {
+    $query = \App\Models\Post::find($id);
+    $query->delete();
+    return redirect('/testmodel');
+});
+
+// TUGAS
+
+// Mengakeses data melalui model
+Route::get('barang', function () {
+    $barang = \App\Models\Barang::all();
+    return $barang;
+});
+
+// Mengakeses data melalui model
+Route::get('pembelian', function () {
+    $pembelian = \App\Models\Pembelian::all();
+    return $pembelian;
+});
+
+// Mengakeses data melalui model
+Route::get('pembeli', function () {
+    $pembeli = \App\Models\Pesanan::all();
+    return $pembeli;
+});
+
+// Mengakeses data melalui model
+Route::get('suplier', function () {
+    $suplier = \App\Models\Suplier::all();
+    return $suplier;
 });
